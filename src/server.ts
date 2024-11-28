@@ -1,7 +1,11 @@
 import app from "./app";
+import connectToDb from "./config/connectToDb.config";
 
-const server = app
+const server = app;
+const PORT = process.env.PORT;
 
-server.listen(3000, () => {
-    return console.log(`Express is listening at http://localhost:${3000}`);
-  });
+connectToDb()
+
+server.listen(PORT, () => {
+  return console.log(`Express is listening at http://localhost:${PORT}`);
+});
