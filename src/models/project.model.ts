@@ -1,10 +1,13 @@
 import mongoose from "mongoose";
 
 export interface IProject {
+  _id?: mongoose.Types.ObjectId;
   name: string;
   deadline: Date;
   description: string;
   status?: "active" | "inactive" | "completed";
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const ProjectSchema = new mongoose.Schema<IProject>(
