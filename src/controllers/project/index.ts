@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import { IProject, Project } from "../models/project.model";
+import { Request, Response } from "express";
 import mongoose from "mongoose";
+import { IProject, Project } from "../../models/project.model";
 
 export const CreateProject = async (
   req: Request,
