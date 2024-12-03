@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export interface ITeamMember {
+  _id?: mongoose.Types.ObjectId,
   name: string;
   role:
     | "designer"

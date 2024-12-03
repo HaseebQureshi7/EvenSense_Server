@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export interface ITech {
+  _id?: mongoose.Types.ObjectId,
   name: string;
   usedFor: "design" | "development" | "testing" | "deployment" | "other";
   ofProject: mongoose.Types.ObjectId;

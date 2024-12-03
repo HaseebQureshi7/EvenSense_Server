@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export interface ILink {
+  _id?: mongoose.Types.ObjectId,
   name: string;
   url: string;
   type: "doc" | "deploy" | "dev";

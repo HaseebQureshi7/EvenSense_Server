@@ -1,14 +1,16 @@
 import express from "express";
 import {
-  getArchitectureById,
   createArchitecture,
   deleteArchitecture,
   updateArchitecture,
+  getProjectArchitecture,
+  getAllArchitectures,
 } from "../controllers/architecture";
 
 const architectureRouter = express.Router();
 
-architectureRouter.get("/:id", getArchitectureById);
+architectureRouter.get("/", getAllArchitectures);
+architectureRouter.get("/get_project_architecture/:id", getProjectArchitecture);
 architectureRouter.post("/", createArchitecture);
 architectureRouter.patch("/:id", updateArchitecture);
 architectureRouter.delete("/:id", deleteArchitecture);

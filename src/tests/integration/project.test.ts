@@ -223,7 +223,7 @@ describe("Project API", () => {
           baseURL + "project/507f191e810c19729de860ea"
         );
         expect(response.status).toBe(404);
-        console.log(response.body);
+        // console.log(response.body);
         expect(response.body.message).toBe("Project not found");
       });
     });

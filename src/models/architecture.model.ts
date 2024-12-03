@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export interface IArchitecture {
+  _id?: mongoose.Types.ObjectId,
   name: string;
   description: string;
   ofProject: mongoose.Types.ObjectId;
