@@ -2,45 +2,39 @@ import mongoose from "mongoose";
 import app from "../../app";
 import supertest from "supertest";
 import { IArchitecture } from "../../models/architecture.model";
+import { connectToTestDb, disconnectFromTestDb } from "../helpers/testDbConfig";
+import { baseURL } from "../utils/config";
+
+// HELPER FUNCTIONS
+export async function createTestArchitecture(app: any): Promise<IArchitecture> {
+    const testArchitectureBody: IArchitecture = {
+        name: "Test Architecture",
+        description: "Lorem Ipsum Dolor Sit",
+        ofProject: new mongoose.Types.ObjectId()
+    };
+
+    const response = await supertest(app).post(`${baseURL}/architecture`).send(testArchitectureBody);
+    expect(response.status).toBe(201);
+    expect(response.body.name).toBe(testArchitectureBody.name);
+
+    return response.body; // Return the created architecture for further use
+}
+
+export async function deleteTestArchitecture(app: any, architectureId: mongoose.Types.ObjectId): Promise<void> {
+    const response = await supertest(app).delete(`${baseURL}/architecture/${architectureId}`);
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("Architecture deleted successfully");
+}
 
 describe("Architecture Tests", () => {
-    const baseURL = "/api/v1/"
 
     beforeAll(async () => {
-        const TEST_DB_URI = process.env.MONGO_URL_TEST;
-        await mongoose
-            .connect(TEST_DB_URI)
-            .then(() => {
-                console.log("Test Database Connected");
-            })
-            .catch((err) => {
-                console.log("DB Not Connected !!! ", err);
-            });
-    });
-    afterAll(async () => {
-        await mongoose.disconnect();
+        await connectToTestDb()
     })
 
-    // HELPER FUNCTIONS
-    async function createTestArchitecture(app: any): Promise<IArchitecture> {
-        const testArchitectureBody: IArchitecture = {
-            name: "Test Architecture",
-            description: "Lorem Ipsum Dolor Sit",
-            ofProject: new mongoose.Types.ObjectId()
-        };
-
-        const response = await supertest(app).post(`${baseURL}/architecture`).send(testArchitectureBody);
-        expect(response.status).toBe(201);
-        expect(response.body.name).toBe(testArchitectureBody.name);
-
-        return response.body; // Return the created architecture for further use
-    }
-
-    async function deleteTestArchitecture(app: any, architectureId: mongoose.Types.ObjectId): Promise<void> {
-        const response = await supertest(app).delete(`${baseURL}/architecture/${architectureId}`);
-        expect(response.status).toBe(200);
-        expect(response.body.message).toBe("Architecture deleted successfully");
-    }
+    afterAll(async () => {
+        await disconnectFromTestDb()
+    })
 
 
     describe('Create Archtecture', () => {

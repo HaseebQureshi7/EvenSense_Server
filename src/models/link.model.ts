@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 
+export type linkTypes = "doc" | "deploy" | "dev"
+
 export interface ILink {
   _id?: mongoose.Types.ObjectId,
   name: string;
   url: string;
-  type: "doc" | "deploy" | "dev";
+  type: linkTypes;
   ofProject: mongoose.Types.ObjectId;
 }
 

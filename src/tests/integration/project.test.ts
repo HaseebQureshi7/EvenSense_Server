@@ -2,26 +2,20 @@
 import supertest from "supertest";
 import app from "../../app";
 import { IProject } from "../../models/project.model";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
+import { connectToTestDb, disconnectFromTestDb } from "../helpers/testDbConfig";
+import { baseURL } from "../utils/config";
 
-describe("Project API", () => {
-  const baseURL = "/api/v1/";
+describe("Project Tests", () => {
 
   beforeAll(async () => {
-    const TEST_DB_URI = process.env.MONGO_URL_TEST;
-    await mongoose
-      .connect(TEST_DB_URI)
-      .then(() => {
-        console.log("Test Database Connected");
-      })
-      .catch((err) => {
-        console.log("DB Not Connected !!! ", err);
-      });
-  });
+    await connectToTestDb()
+})
 
-  afterAll(async () => {
-    await mongoose.disconnect();
-  });
+afterAll(async () => {
+    await disconnectFromTestDb()
+})
+
 
   // describe("Create Project", () => {
   //   describe("Validation Tests", () => {

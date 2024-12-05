@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import cors, { CorsOptions } from "cors";
 import router from "./routes/router";
+import { globalErrorHandler } from "./utils/globalErrorHandler";
 const app = express();
 
 dotenv.config();
@@ -14,10 +15,14 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }))
 app.use(express.urlencoded({ limit: "10mb", extended: true }))
 
+
 app.get("/ping", (req: Request, res: Response) => {
   res.status(200).json({ message: "Server is up and running 🎉" });
 });
 
 app.use("/api/v1", router);
+
+// SHOULD BE AT END 
+app.use(globalErrorHandler);
 
 export default app;
