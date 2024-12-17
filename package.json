@@ -7,7 +7,9 @@
     "prod": "node dist/server.js",
     "build": "rimraf dist && tsc",
     "test:unit": "jest src/tests/unit",
-    "test:integration": "jest src/tests/integration"
+    "test:integration": "jest src/tests/integration",
+    "test:integration-coverage": "jest --coverage src/tests/integration"
+
   },
   "keywords": [],
   "author": "",
